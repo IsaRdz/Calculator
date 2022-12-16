@@ -1,19 +1,27 @@
-var resultado = document.getElementById('resultado');
-var cero = document.getElementById('cero');
-var uno = document.getElementById('uno');
-var dos = document.getElementById('dos');
-var tres = document.getElementById('tres');
-var cuatro = document.getElementById('cuatro');
-var cinco = document.getElementById('cinco');
-var seis = document.getElementById('seis');
-var siete = document.getElementById('siete');
-var ocho = document.getElementById('ocho');
-var nueve = document.getElementById('nueve');
+const resultado = document.getElementById('resultado');
+const numbers = document.querySelectorAll('.number');
+const operators = document.querySelectorAll('.operator');
 
-uno.onclick = function(x){
-  resultado.textContent = resultado.textContent + "1";
+window.addEventListener("keydown",(event)=> {
+  console.log("event",event.key);
+  if(!isNaN(event.key) && resultado.textContent.length < 13){
+    resultado.textContent = resultado.textContent + event.key;
+  }
+});
+
+for(const number of numbers){
+  number.addEventListener("click", (event) => {
+    console.log("numbers",number.innerHTML);
+
+    if(resultado.textContent.length < 13){
+      resultado.textContent = resultado.textContent + number.innerHTML;
+    }
+  })
 }
-// uno.addEventListener("onclick", (event)=>{
-//     resultado.textContent = resultado.textContent + "1";
-//     console.log("event", event)
-// })
+
+for(const operator of operators){
+  operator.addEventListener( "click", ()=> {
+    console.log("operator",operator.innerHTML);
+    resultado.textContent = operator.innerHTML;
+  })
+}

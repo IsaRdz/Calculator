@@ -11,6 +11,7 @@ body{
     width: 70%;
     margin: 5vh auto;
     padding: 7vw;
+    justify-content: center;
     border: 0.1rem solid #d771ff;
     border-radius: 1rem;
     box-shadow: 0 0 .2rem #fff,
@@ -28,7 +29,7 @@ body{
 }
 .display{
     width: 100%;
-    height: 10vh;
+    height: 13vh;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
@@ -49,12 +50,14 @@ body{
     0 0 7px #0fa,
     0 0 7px #0fa;;
 }
-.container-buttons > div{
+.container-buttons > button{
+    border: none;
     padding: 2vh;
     text-align: center;
     font-size: medium;
     border-radius: 5px;
     color: #fff;
+    background-color: rgba(0, 0, 0, 0);
     box-shadow: 0 0 5px rgb(255, 171, 221),
     0 0 5px rgb(250, 135, 204),
     0 0 5px rgb(250, 135, 204),
@@ -65,9 +68,16 @@ body{
     0 0 10px #f09;;
 }
 
-.container-buttons > div:active{
+.container-buttons > button:active{
     background-color: #f09;
     -webkit-transform:scale(1.1);
     transform:scale(1.1);
 }
 
+@media (width >= 767px){
+    .container-calculator{
+        width: 50%;
+        padding: 4vw;
+    }
+ 
+}
