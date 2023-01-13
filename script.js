@@ -5,9 +5,10 @@ const equal = document.getElementById('equal');
 const del = document.getElementById('delete');
 const reset = document.getElementById('reset')
 
-var num1;
-var num2;
+var num1 = "0";
+var num2 = "0";
 var op;
+var result;
 //!isNaN(event.key) &&
 /*  window.addEventListener("keydown",(event)=> {
     console.log("key press",event.key);
@@ -24,39 +25,61 @@ var op;
 const catchNumber = () =>{
   for(const number of numbers){
     number.addEventListener("click", (event) => {
-      //console.log("numbers",number.innerHTML);
       if(resultado.textContent.length < 13){
         if(resultado.textContent == 0 || resultado.textContent == "/" || resultado.textContent == "x" || resultado.textContent == "-" || resultado.textContent == "+" || resultado.textContent == "%"){
           resultado.textContent = number.innerHTML;
         }else{
           resultado.textContent = resultado.textContent + number.innerHTML;
         }
-      }    
-    });
-  };
-  //clear();
+      }        
+    });    
+  };        
 }
 catchNumber();
-
 
 const resetFunction = () =>{
   reset.addEventListener("click", () =>{
     resultado.textContent = "0";
+    num1 = "0";
+    num2 = "0";
+    localStorage.clear();
+    console.log(localStorage);
   })
 }
 resetFunction();
 
-const catchOperator = () =>{
-for(const operator of operators){
-  operator.addEventListener( "click", ()=> {
-    num1 = resultado.textContent;
-    console.log(num1)
-    console.log("operator",operator.innerHTML);
-    resultado.textContent = operator.innerHTML;
-  })
-  op=operator.innerHTML;
-  console.log("op",op)
+const saveLocalStorage = () =>{
+  localStorage.setItem('valor1',num1);
+  localStorage.setItem('valor2',num2);
+  localStorage.setItem('operator',op);
+}
+  
+const asignNumber = (num) =>{
+  if(num1 == 0){
+    num1 = num;
+  }else{
+    num2 = num;
   }
+}
+
+const resolveOperation = () =>{
+  if(op = '+'){
+    result = parseFloat(localStorage.getItem('valor1')) + parseFloat(localStorage.getItem('valor2'));
+    localStorage.setItem('result',result);
+    console.log(localStorage)    
+  }
+}
+
+const catchOperator = () =>{ 
+  for(const operator of operators){
+    operator.addEventListener( "click", ()=> {
+      asignNumber(resultado.textContent);
+      resultado.textContent = operator.innerHTML;
+      op=resultado.textContent; 
+      saveLocalStorage();
+      resolveOperation();      
+    })
+  }    
 }
 catchOperator();
 
@@ -71,10 +94,16 @@ const delFunction = () =>{
 }
 delFunction();
 
-equal.addEventListener("click",()=>{
-  num2 = resultado.textContent;
-  console.log(num1 + " " + op + " " + num2)
-  resultado.textContent = num1 , op , num2;
-  
-})
+const buttonEqual = () =>{
+  equal.addEventListener("click", ()=>{
+    asignNumber(resultado.textContent);
+    saveLocalStorage();
+    resolveOperation();
+    resultado.textContent = localStorage.getItem('result');
+    
+  })
+}
+buttonEqual();
+
+
 
