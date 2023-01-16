@@ -9,6 +9,7 @@ var num1 = "0";
 var num2 = "0";
 var op;
 var result;
+var flag = false;
 //!isNaN(event.key) &&
 /*  window.addEventListener("keydown",(event)=> {
     console.log("key press",event.key);
@@ -26,8 +27,9 @@ const catchNumber = () =>{
   for(const number of numbers){
     number.addEventListener("click", (event) => {
       if(resultado.textContent.length < 13){
-        if(resultado.textContent == 0 || resultado.textContent == "/" || resultado.textContent == "x" || resultado.textContent == "-" || resultado.textContent == "+" || resultado.textContent == "%"){
+        if(flag == true || resultado.textContent == 0 || resultado.textContent == "/" || resultado.textContent == "x" || resultado.textContent == "-" || resultado.textContent == "+" || resultado.textContent == "%"){
           resultado.textContent = number.innerHTML;
+          flag = false;
         }else{
           resultado.textContent = resultado.textContent + number.innerHTML;
         }
@@ -37,16 +39,20 @@ const catchNumber = () =>{
 }
 catchNumber();
 
-const resetFunction = () =>{
-  reset.addEventListener("click", () =>{
-    resultado.textContent = "0";
+const resetFunction = () =>{  
     num1 = "0";
     num2 = "0";
     localStorage.clear();
     console.log(localStorage);
+}
+
+const resetButton = () =>{
+  reset.addEventListener("click", () =>{
+    resetFunction();
+    resultado.textContent = "0";
   })
 }
-resetFunction();
+resetButton();
 
 const saveLocalStorage = () =>{
   localStorage.setItem('valor1',num1);
@@ -63,11 +69,23 @@ const asignNumber = (num) =>{
 }
 
 const resolveOperation = () =>{
-  if(op = '+'){
+  if(op == '+'){
     result = parseFloat(localStorage.getItem('valor1')) + parseFloat(localStorage.getItem('valor2'));
     localStorage.setItem('result',result);
-    console.log(localStorage)    
-  }
+    console.log(localStorage);    
+  }else if(op == '-'){
+    result = parseFloat(localStorage.getItem('valor1')) - parseFloat(localStorage.getItem('valor2'));
+    localStorage.setItem('result',result);
+    console.log(localStorage);
+    }else if(op == 'x'){
+    result = parseFloat(localStorage.getItem('valor1')) * parseFloat(localStorage.getItem('valor2'));
+    localStorage.setItem('result',result);
+    console.log(localStorage);
+    }else if(op == '/'){
+      result = parseFloat(localStorage.getItem('valor1')) / parseFloat(localStorage.getItem('valor2'));
+      localStorage.setItem('result',result);
+      console.log(localStorage);
+     }    
 }
 
 const catchOperator = () =>{ 
@@ -76,8 +94,7 @@ const catchOperator = () =>{
       asignNumber(resultado.textContent);
       resultado.textContent = operator.innerHTML;
       op=resultado.textContent; 
-      saveLocalStorage();
-      resolveOperation();      
+      saveLocalStorage();      
     })
   }    
 }
@@ -100,7 +117,8 @@ const buttonEqual = () =>{
     saveLocalStorage();
     resolveOperation();
     resultado.textContent = localStorage.getItem('result');
-    
+    flag = true;
+    resetFunction();
   })
 }
 buttonEqual();
