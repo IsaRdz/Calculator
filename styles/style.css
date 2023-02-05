@@ -8,9 +8,9 @@ body{
     background-color: black;
 }
 .container-calculator{
-    width: 70%;
+    width: 300px;
     margin: 5vh auto;
-    padding: 7vw;
+    padding: 40px;
     justify-content: center;
     border: 0.1rem solid #d771ff;
     border-radius: 1rem;
@@ -24,12 +24,12 @@ body{
 .container-buttons{
     display: grid;
     grid-template-columns: 23% 23% 23% 23%;
-    gap: 1.5vw;
-    margin: 0 2.5vw 0 2.5vw;
+    gap: 5px;
+    margin: 0 auto;
 }
 .display{
     width: 100%;
-    height: 13vh;
+    height: 70px;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
@@ -72,12 +72,4 @@ body{
     background-color: #f09;
     -webkit-transform:scale(1.1);
     transform:scale(1.1);
-}
-
-@media (width >= 767px){
-    .container-calculator{
-        width: 50%;
-        padding: 4vw;
-    }
- 
 }
