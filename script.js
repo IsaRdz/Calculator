@@ -26,7 +26,7 @@ var flag = false;
 const catchNumber = () =>{
   for(const number of numbers){
     number.addEventListener("click", (event) => {
-      if(resultado.textContent.length < 13){
+      if(resultado.textContent.length < 17){
         if(flag == true || resultado.textContent == 0 || resultado.textContent == "/" || resultado.textContent == "x" || resultado.textContent == "-" || resultado.textContent == "+" || resultado.textContent == "%"){
           resultado.textContent = number.innerHTML;
           flag = false;
@@ -85,6 +85,18 @@ const resolveOperation = () =>{
       result = parseFloat(localStorage.getItem('valor1')) / parseFloat(localStorage.getItem('valor2'));
       localStorage.setItem('result',result);
       console.log(localStorage);
+     }else if(op == '%'){
+      console.log(localStorage);
+      if (localStorage.getItem('valor2')!="0"){
+        result = parseFloat(localStorage.getItem('valor2'))/100;
+        localStorage.setItem('result',result);
+        console.log(localStorage + "valor 2");
+      }else{
+        result = parseFloat(localStorage.getItem('valor1'))/100;
+        localStorage.setItem('result',result);
+        console.log(localStorage + "valor1");
+      }
+      
      }    
 }
 
@@ -116,9 +128,16 @@ const buttonEqual = () =>{
     asignNumber(resultado.textContent);
     saveLocalStorage();
     resolveOperation();
-    resultado.textContent = localStorage.getItem('result');
-    flag = true;
-    resetFunction();
+    let resultOp = localStorage.getItem('result');
+    if(resultOp.length < 15){
+      resultado.textContent = resultOp;
+      flag = true;
+      resetFunction();
+    }else{
+      resultado.textContent = resultOp.substring(0,15);
+      flag = true;
+      resetFunction();
+    }
   })
 }
 buttonEqual();
